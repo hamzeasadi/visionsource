@@ -1,7 +1,7 @@
 import numpy as np
 from utils import KeepTrack
 import conf as cfg
-from datasetup import trainl, testl, vall
+from datasetup import trainloader, valloader, testloader
 # from camsrc0 import model
 import camsrc0 as model
 import engine
@@ -53,7 +53,7 @@ def main():
     minerror = np.inf
     # if False:
     if args.train:
-        train(net=Net, train_loader=trainl, val_loader=vall, opt=opt, criterion=criteria, epochs=args.epoch, minerror=minerror, modelname=model_name)
+        train(net=Net, train_loader=trainloader, val_loader=valloader, opt=opt, criterion=criteria, epochs=args.epoch, minerror=minerror, modelname=model_name)
 
     # if True:
     if args.test:
@@ -61,7 +61,7 @@ def main():
         state = keeptrack.load_ckp(fname=model_name)
         Net.load_state_dict(state['model'], strict=False)
         print(f"min error is {state['minerror']} which happen at epoch {state['epoch']}")
-        engine.test_step(model=Net, data=testl, criterion=criteria)
+        engine.test_step(model=Net, data=testloader, criterion=criteria)
 
 
 
