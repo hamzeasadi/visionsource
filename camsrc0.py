@@ -91,7 +91,7 @@ class ConstConv(ModelBase):
             nn.Conv2d(in_channels=128, out_channels=128, kernel_size=3, stride=1), nn.BatchNorm2d(num_features=128),
             nn.Tanh(), nn.AvgPool2d(kernel_size=8, stride=1),
            
-            nn.Flatten(), nn.Linear(in_features=128, out_features=6)
+            nn.Flatten(), nn.Linear(in_features=128, out_features=9)
         )
 
         return layer
