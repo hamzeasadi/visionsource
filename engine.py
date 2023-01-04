@@ -6,6 +6,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 from torchmetrics import Accuracy
 from sklearn.metrics import accuracy_score
+from itertools import combinations
 
 
 dev = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -57,34 +58,53 @@ def test_step(model: nn.Module, data: DataLoader, criterion: nn.Module):
             yhat = torch.argmax(out, dim=1)
             Y_true = torch.cat((Y_true, Y))
             Y_pred = torch.cat((Y_pred, yhat))
-            # loss = criterion(out, Y)
-            # epoch_error += loss.item()
 
-
-    # accuracy = Accuracy(task='multiclass', num_classes=6)
-    # y = Y.numpy()
     print(Y_pred.shape, Y_true.shape)
-    # print(Y)
-    # print(out)
-    
-    
-    # acc = accuracy(Y_pred.cpu().detach(), Y_true.cpu().detach())
-    # print(f"acc is {acc}")
 
     acc = accuracy_score(Y_pred.cpu().detach().numpy(), Y_true.cpu().detach().numpy())
     print(f"acc is {acc}")
 
-    # yhat = torch.argmax(out, dim=1)
-    # print(Y)
-    # print(yhat)
+    Ypre = Y_pred.cpu().detach().numpy()
+    Ytrue = Y_true.cpu().detach().numpy()
+    for i in range(9):
+        comps = combinations(iterable=Ypre[Ytrue==i], r=3)
+        avgclsacc = 0
+        j=0
+        for comp in comps:
+            j+=1
+            avg = sum(np.array(comp)==i)
+            if avg>1:
+                avgclsacc += 1
+        print(f"class={i} ---> accuracy={avgclsacc/j}")
+
+
 
 def main():
-    y = torch.tensor([1])
-    for i in range(10):
-        x = torch.randn(size=(5, 6))
-        yhat = torch.argmax(x, dim=1)
-        y = torch.cat((y, yhat))
+    y = np.random.randint(low=0, high=3, size=(20,))
+    ypre = np.random.randint(low=0, high=3, size=(20,))
+    yy = []
+    comps = []
+    accs = []
+    for i in range(3):
+        comps = combinations(iterable=ypre[y==i], r=3)
+        avgclsacc = 0
+        j=0
+        for comp in comps:
+            j+=1
+            avg = sum(np.array(comp)==i)
+            if avg>1:
+                avgclsacc += 1
+        print(avgclsacc/j)
 
+
+        print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+        
+    
+    
+
+    
+    
+    
     
 
 
