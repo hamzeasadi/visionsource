@@ -67,15 +67,15 @@ def test_step(model: nn.Module, data: DataLoader, criterion: nn.Module):
     Ypre = Y_pred.cpu().detach().numpy()
     Ytrue = Y_true.cpu().detach().numpy()
     for i in range(9):
-        comps = combinations(iterable=Ypre[Ytrue==i], r=3)
+        comps = combinations(iterable=Ypre[Ytrue==i], r=5)
         avgclsacc = 0
         j=0
         for comp in comps:
             j+=1
             avg = sum(np.array(comp)==i)
-            if avg>1:
+            if avg>2:
                 avgclsacc += 1
-        print(f"class={i} ---> accuracy={avgclsacc/j}")
+        print(f"class={i} ---> accuracy={avgclsacc/j}, num_samples={j}")
 
 
 
