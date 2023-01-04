@@ -5,6 +5,7 @@ from torch.utils.data import DataLoader
 import numpy as np
 from matplotlib import pyplot as plt
 from torchmetrics import Accuracy
+from sklearn.metrics import accuracy_score
 
 
 dev = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -46,8 +47,8 @@ def test_step(model: nn.Module, data: DataLoader, criterion: nn.Module):
     l = len(data)
     model.eval()
     model.to(dev)
-    Y_true = torch.tensor([1])
-    Y_pred = torch.tensor([1])
+    Y_true = torch.tensor([1], device=dev)
+    Y_pred = torch.tensor([1], device=dev)
     with torch.no_grad():
         for i, (X, Y) in enumerate(data):
             X = X.to(dev)
@@ -60,14 +61,17 @@ def test_step(model: nn.Module, data: DataLoader, criterion: nn.Module):
             # epoch_error += loss.item()
 
 
-    accuracy = Accuracy(task='multiclass', num_classes=6)
+    # accuracy = Accuracy(task='multiclass', num_classes=6)
     # y = Y.numpy()
     print(Y_pred.shape, Y_true.shape)
     # print(Y)
     # print(out)
     
     
-    acc = accuracy(Y_pred.detach(), Y_true.detach())
+    # acc = accuracy(Y_pred.cpu().detach(), Y_true.cpu().detach())
+    # print(f"acc is {acc}")
+
+    acc = accuracy_score(Y_pred.cpu().detach().numpy(), Y_true.cpu().detach().numpy())
     print(f"acc is {acc}")
 
     # yhat = torch.argmax(out, dim=1)
