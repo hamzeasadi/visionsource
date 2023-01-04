@@ -3,8 +3,8 @@ import os
 import conf as cfg
 
 def download_file_from_google_drive(id, destination):
-    # URL = "https://docs.google.com/uc?export=download"
-    URL = "https://drive.google.com/file/d/1c84_CtRGK8ifv-7c9MI_xYVruYAnYX5p/view?usp=share_link"
+    URL = "https://docs.google.com/uc?export=download"
+    # URL = "https://drive.google.com/file/d/1c84_CtRGK8ifv-7c9MI_xYVruYAnYX5p/view?usp=share_link"
 
     session = requests.Session()
 
