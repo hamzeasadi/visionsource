@@ -1,5 +1,5 @@
 import os, sys, random
-import cv2
+# import cv2
 import torch
 from matplotlib import pyplot as plt
 import numpy as np
