@@ -34,7 +34,7 @@ def save_response_content(response, destination):
 
 if __name__ == "__main__":
     file_id = '1c84_CtRGK8ifv-7c9MI_xYVruYAnYX5p'
-    destination = cfg.paths['data']
+    destination = './'
     download_file_from_google_drive(file_id, destination)
 
 
