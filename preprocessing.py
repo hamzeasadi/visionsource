@@ -38,8 +38,8 @@ def imgpatchs(img):
     h, w, c = img.shape
     graytrf = trf(img[:, :, 0])
     img[:, :, 0] = graytrf.numpy()
-    numh = int(h/H) - 1
-    numw = int(w/W) - 1
+    numh = int(h/H) 
+    numw = int(w/W) 
     patches = []
     for i in range(numh):
         hi = i*H
@@ -136,7 +136,6 @@ def extractallpatches(src_path, trg_path):
             #         patchpath = os.path.join(trgtestfolderpath, patchname)
             #         cv2.imwrite(filename=patchpath, img=patch)
             #         i+=1
-
 
 
 

@@ -14,7 +14,9 @@ root = os.getcwd()
 datapath = os.path.join(root, 'data')
 paths = dict(
     root=root, data=datapath, dataset=os.path.join(datapath, 'dataset'), videos=os.path.join(datapath, 'videos'), 
-    iframes=os.path.join(datapath, 'iframes'), model=os.path.join(datapath, 'model')
+    iframes=os.path.join(datapath, 'iframes'), model=os.path.join(datapath, 'model'), videotest=os.path.join(datapath, 'videotest'),
+    videotestiframes=os.path.join(datapath, 'videotestiframes'), videostest=os.path.join(datapath, 'videostest'), 
+    datatest=os.path.join(datapath, 'datatest')
 )
 
 constlayer = dict(ks=5, scale=1, outch=8)
