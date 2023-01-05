@@ -64,18 +64,18 @@ def test_step(model: nn.Module, data: DataLoader, criterion: nn.Module):
     acc = accuracy_score(Y_pred.cpu().detach().numpy(), Y_true.cpu().detach().numpy())
     print(f"acc is {acc}")
 
-    Ypre = Y_pred.cpu().detach().numpy()
-    Ytrue = Y_true.cpu().detach().numpy()
-    for i in range(9):
-        comps = combinations(iterable=Ypre[Ytrue==i], r=5)
-        avgclsacc = 0
-        j=0
-        for comp in comps:
-            j+=1
-            avg = sum(np.array(comp)==i)
-            if avg>2:
-                avgclsacc += 1
-        print(f"class={i} ---> accuracy={avgclsacc/j}, num_samples={j}")
+    # Ypre = Y_pred.cpu().detach().numpy()
+    # Ytrue = Y_true.cpu().detach().numpy()
+    # for i in range(9):
+    #     comps = combinations(iterable=Ypre[Ytrue==i], r=5)
+    #     avgclsacc = 0
+    #     j=0
+    #     for comp in comps:
+    #         j+=1
+    #         avg = sum(np.array(comp)==i)
+    #         if avg>2:
+    #             avgclsacc += 1
+    #     print(f"class={i} ---> accuracy={avgclsacc/j}, num_samples={j}")
 
 
 

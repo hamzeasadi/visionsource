@@ -13,41 +13,10 @@ import random
 from torchvision import transforms
 import cv2
 from torchvision.datasets import ImageFolder
+from itertools import combinations
 
 
 dev = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-
-
-def test_step(model: nn.Module, data: DataLoader, criterion: nn.Module):
-    epoch_error = 0
-    l = len(data)
-    model.eval()
-    model.to(dev)
-    Y_true = torch.tensor([1], device=dev)
-    Y_pred = torch.tensor([1], device=dev)
-    with torch.no_grad():
-        for i, (X, Y) in enumerate(data):
-            X = X.to(dev)
-            Y = Y.to(dev)
-            out = model(X)
-            yhat = torch.argmax(out, dim=1)
-            Y_true = torch.cat((Y_true, Y))
-            Y_pred = torch.cat((Y_pred, yhat))
-
-    print(Y_pred.shape, Y_true.shape)
-    acc = accuracy_score(Y_pred.cpu().detach().numpy(), Y_true.cpu().detach().numpy())
-    print(f"acc is {acc}")
-
-
-# def extract_all_patches(srcpath, trgpath):
-#     srcfolders = os.listdir(srcpath)
-
-#     try:
-#         srcfolders.remove('.DS_Store')
-#     except Exception as e:
-#         print(e)
-
-#     for srcfolder in srcfolders:
 
 
 def extractiframes(srcpath, trgpath):
@@ -110,6 +79,40 @@ def createtestdata(folder_id):
     return  DataLoader(dataset=dataset, batch_size=500)
 
 
+def patch_accuracy(ground_truth, predictions):
+    pass
+
+def test_step(model: nn.Module, data: DataLoader, criterion: nn.Modulen, num_cls=6):
+    epoch_error = 0
+    l = len(data)
+    model.eval()
+    model.to(dev)
+    Y_true = torch.tensor([1], device=dev)
+    Y_pred = torch.tensor([1], device=dev)
+    with torch.no_grad():
+        for i, (X, Y) in enumerate(data):
+            X = X.to(dev)
+            Y = Y.to(dev)
+            out = model(X)
+            yhat = torch.argmax(out, dim=1)
+            Y_true = torch.cat((Y_true, Y))
+            Y_pred = torch.cat((Y_pred, yhat))
+
+    ytrue = Y_true[1:]
+    ypred = Y_pred[1:]
+
+    
+    for num_patch in range(3, 7):
+        patch_cls_acc = []
+        for cls in range(num_cls):
+            patch_cls_acc = 1
+
+
+    # print(ytrue.shape, ypred.shape)
+    # acc = accuracy_score(ypred.cpu().detach().numpy(), ytrue.cpu().detach().numpy())
+    # print(f"acc is {acc}")
+
+
 
 
 def main():
@@ -121,14 +124,26 @@ def main():
     #     y = torch.cat((y, yhat))
 
    
-    srcpath = cfg.paths['videotestiframes']
-    trgpath = cfg.paths['datatest']
+    # srcpath = cfg.paths['videotestiframes']
+    # trgpath = cfg.paths['datatest']
 
-    # createdb(srcpath=srcpath, trgpath=trgpath)
+    # # createdb(srcpath=srcpath, trgpath=trgpath)
 
-    firstfolder = createtestdata(folder_id=1)
-    batch = next(iter(firstfolder))
-    print(batch[0].shape, batch[1])
+    # firstfolder = createtestdata(folder_id=1)
+    # batch = next(iter(firstfolder))
+    # print(batch[0].shape, batch[1])
+
+    y = torch.cat((y, torch.randn(size=(3, ))))
+    # z = y[1:]
+    # print(z)
+    # acc = dict()
+    # acc['0'] = 10
+    # print(acc)
+
+    x = np.array([1, 1, 1])
+    combs = combinations(x, 2)
+    for comb in combs:
+        print(comb)
 
 
     
