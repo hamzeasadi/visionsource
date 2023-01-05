@@ -41,7 +41,7 @@ def train(net, train_loader, val_loader, opt, criterion, epochs, minerror, model
 
 
 def main():
-    model_name = f"vision_residual_1.pt"
+    model_name = f"vision_resnt50_residual_2.pt"
     keeptrack = KeepTrack(path=cfg.paths['model'])
     Net = model.ConstConv(lcnf=cfg.constlayer)
     # Net = nn.DataParallel(Net)

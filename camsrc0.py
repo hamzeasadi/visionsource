@@ -2,6 +2,7 @@ import torch
 from torch import nn as nn
 from torch.nn import functional as F
 from torchinfo import summary
+from torchvision import models
 
 import os, sys
 sys.path.append(os.pardir)
@@ -54,8 +55,12 @@ class ConstConv(ModelBase):
         self.lcnf = lcnf
         self.register_parameter("const_weight", None)
         self.const_weight = nn.Parameter(torch.randn(size=[lcnf['outch'], 1, lcnf['ks'], lcnf['ks']]), requires_grad=True)
-        self.fx = self.feat_ext()
+        # self.fx = self.feat_ext()
 
+        resnet_weight = models.ResNet50_Weights.DEFAULT
+        self.base_model = models.resnet50(weights=resnet_weight)
+        self.base_model.fc = nn.Linear(in_features=2048, out_features=9)
+        self.const2res = nn.Conv2d(in_channels=lcnf['outch']+2, out_channels=3, kernel_size=3, stride=1, padding='same')
 
     def add_pos(self, res, batch):
         Z = []
@@ -101,7 +106,10 @@ class ConstConv(ModelBase):
         noise = F.conv2d(x[:, 0:1, :, :], self.const_weight, padding='same')
         noisecoord = self.add_pos(res=noise, batch=x)
         # print(noisecoord.shape)
-        x = self.fx(noisecoord)
+        # x = self.fx(noisecoord)
+        x = self.const2res(x)
+        x = self.base_model(x)
+        
         return x 
 
 
