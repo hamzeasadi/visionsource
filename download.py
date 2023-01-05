@@ -33,7 +33,8 @@ def save_response_content(response, destination):
                 f.write(chunk)
 
 if __name__ == "__main__":
-    file_id = '1c84_CtRGK8ifv-7c9MI_xYVruYAnYX5p'
+    # file_id = '1c84_CtRGK8ifv-7c9MI_xYVruYAnYX5p'
+    file_id = '1zG5UwkPVCrTKNKDqPUcMiGLvuvq7GHd9'
     destination = os.path.join(cfg.paths['data'], 'dataset.zip')
     download_file_from_google_drive(file_id, destination)
 
