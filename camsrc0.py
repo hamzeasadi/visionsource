@@ -107,7 +107,7 @@ class ConstConv(ModelBase):
         noisecoord = self.add_pos(res=noise, batch=x)
         # print(noisecoord.shape)
         # x = self.fx(noisecoord)
-        x = self.const2res(x)
+        x = self.const2res(noisecoord)
         x = self.base_model(x)
         
         return x 
