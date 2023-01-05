@@ -79,10 +79,19 @@ def createtestdata(folder_id):
     return  DataLoader(dataset=dataset, batch_size=500)
 
 
-def patch_accuracy(ground_truth, predictions):
-    pass
+# def patch_accuracy(ground_truth, predictions):
+#     pass
 
-def test_step(model: nn.Module, data: DataLoader, criterion: nn.Modulen, num_cls=6):
+def frame_result(gtruth, predictions, num_cls):
+    frame_prediction = torch.tensor([True])
+    for i in range(num_cls):
+        x = predictions[gtruth==i] == i
+        prediction_state = torch.tensor([(x.sum()/x.numel())>0.5])
+        frame_prediction = torch.cat((frame_prediction, prediction_state))
+        
+    return frame_prediction[1:]
+
+def test_step(model: nn.Module, data: DataLoader, criterion: nn.Module, num_cls=9):
     epoch_error = 0
     l = len(data)
     model.eval()
@@ -101,11 +110,24 @@ def test_step(model: nn.Module, data: DataLoader, criterion: nn.Modulen, num_cls
     ytrue = Y_true[1:]
     ypred = Y_pred[1:]
 
+    return frame_result(gtruth=ytrue, predictions=ypred, num_cls=9)
+
+
+def final_result(model: nn.Module, criterion: nn.Module, num_cls=9):
+    general_result = torch.tensor([1])
+    for i in range(146):
+        dataset = createtestdata(folder_id=i)
+        t = test_step(model=model, data=dataset, criterion=criterion, num_cls=9)
+        # general_result.append(t[0])
+        print(t)
+        print(t[0])
     
-    for num_patch in range(3, 7):
-        patch_cls_acc = []
-        for cls in range(num_cls):
-            patch_cls_acc = 1
+
+    
+    # for num_patch in range(3, 7):
+    #     patch_cls_acc = []
+    #     for cls in range(num_cls):
+    #         patch_cls_acc = 1
 
 
     # print(ytrue.shape, ypred.shape)
@@ -133,17 +155,9 @@ def main():
     # batch = next(iter(firstfolder))
     # print(batch[0].shape, batch[1])
 
-    y = torch.cat((y, torch.randn(size=(3, ))))
-    # z = y[1:]
-    # print(z)
-    # acc = dict()
-    # acc['0'] = 10
-    # print(acc)
-
-    x = np.array([1, 1, 1])
-    combs = combinations(x, 2)
-    for comb in combs:
-        print(comb)
+    gtrue = torch.tensor([0,0,0,1, 1, 1])
+    ptrue = torch.tensor([0,1,1,1, 1, 1])
+    frame_result(gtruth=gtrue, predictions=ptrue, num_cls=2)
 
 
     
