@@ -16,10 +16,10 @@ paths = dict(
     root=root, data=datapath, dataset=os.path.join(datapath, 'dataset'), videos=os.path.join(datapath, 'videos'), 
     iframes=os.path.join(datapath, 'iframes'), model=os.path.join(datapath, 'model'), videotest=os.path.join(datapath, 'videotest'),
     videotestiframes=os.path.join(datapath, 'videotestiframes'), videostest=os.path.join(datapath, 'videostest'), 
-    datatest=os.path.join(datapath, 'datatest')
+    datatest=os.path.join(datapath, 'datatest'), Derrickdata=os.path.join(datapath, 'Derrickdata')
 )
 
-constlayer = dict(ks=5, scale=1, outch=8)
+constlayer = dict(ks=5, scale=1, outch=3)
 
 def creatdir(path: str):
     try:
