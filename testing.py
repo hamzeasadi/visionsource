@@ -114,14 +114,16 @@ def test_step(model: nn.Module, data: DataLoader, criterion: nn.Module, num_cls=
 
 
 def final_result(model: nn.Module, criterion: nn.Module, num_cls=9):
-    general_result = torch.tensor([1])
+    general_result = torch.tensor([1<2])
+    
     for i in range(146):
         dataset = createtestdata(folder_id=i)
         t = test_step(model=model, data=dataset, criterion=criterion, num_cls=9)
-        # general_result.append(t[0])
-        print(t)
-        print(t[0])
-    
+        general_result = torch.cat((general_result, t))
+
+    print(general_result)
+    print(general_result.sum()/general_result.numel())
+
 
     
     # for num_patch in range(3, 7):
@@ -155,9 +157,7 @@ def main():
     # batch = next(iter(firstfolder))
     # print(batch[0].shape, batch[1])
 
-    gtrue = torch.tensor([0,0,0,1, 1, 1])
-    ptrue = torch.tensor([0,1,1,1, 1, 1])
-    frame_result(gtruth=gtrue, predictions=ptrue, num_cls=2)
+    print(torch.tensor([1<2]))
 
 
     
