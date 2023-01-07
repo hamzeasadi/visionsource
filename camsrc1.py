@@ -7,7 +7,7 @@ from torchvision import models
 import os, sys
 sys.path.append(os.pardir)
 import conf as cfg
-
+constlayer = dict(ks=5, scale=1, outch=3)
 
 dev = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
@@ -50,7 +50,7 @@ class ConstConv(ModelBase):
     """
     doc
     """
-    def __init__(self, lcnf: dict, name='constlayer', created_time=None):
+    def __init__(self, lcnf: dict=constlayer, name='constlayer', created_time=None):
         super().__init__(name=name, created_time=created_time)
         self.lcnf = lcnf
         self.register_parameter("const_weight", None)
