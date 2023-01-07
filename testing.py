@@ -86,7 +86,7 @@ def frame_result(gtruth, predictions, num_cls):
     frame_prediction = torch.tensor([True])
     for i in range(num_cls):
         x = predictions[gtruth==i] == i
-        prediction_state = torch.tensor([(x.sum()/x.numel())>0.5])
+        prediction_state = torch.tensor([(x.sum()/x.numel())>0.4])
         frame_prediction = torch.cat((frame_prediction, prediction_state))
         
     return frame_prediction[1:]
