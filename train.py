@@ -58,7 +58,7 @@ def main():
 
     # if True:
     if args.test:
-        model_name = f"vision_residual_1.pt"
+        # model_name = f"vision_residual_1.pt"
         state = keeptrack.load_ckp(fname=model_name)
         Net.load_state_dict(state['model'], strict=False)
         print(f"min error is {state['minerror']} which happen at epoch {state['epoch']}")
