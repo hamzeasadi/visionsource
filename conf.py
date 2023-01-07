@@ -19,7 +19,7 @@ paths = dict(
     datatest=os.path.join(datapath, 'datatest'), Derrickdata=os.path.join(datapath, 'Derrickdata')
 )
 
-constlayer = dict(ks=5, scale=1, outch=3)
+constlayer = dict(ks=5, scale=1, outch=8)
 
 def creatdir(path: str):
     try:
