@@ -34,7 +34,7 @@ def save_response_content(response, destination):
 
 if __name__ == "__main__":
     # file_id = '1c84_CtRGK8ifv-7c9MI_xYVruYAnYX5p'
-    file_id = '1zG5UwkPVCrTKNKDqPUcMiGLvuvq7GHd9'
+    file_id = '18aMrTRNsdINmomG4O5n1D3cwq777lFnQ'
     destination = os.path.join(cfg.paths['data'], 'Derrickdata.zip')
     download_file_from_google_drive(file_id, destination)
 
