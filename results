@@ -1,0 +1,7 @@
+│(TNN2diff) hasadi@insight003:~/project/visionsource$ srun -p confirm --gres=gpu:1 python3 train.py --epoch 100 --no-train --test
+│min error is 0.3360999699520028 which happen at epoch 13
+│tensor(0.8023)
+
+│(TNN2diff) hasadi@insight003:~/project/visionsource$ srun -p confirm --gres=gpu:1 python3 train.py --epoch 100 --no-train --test
+│min error is 0.3360999699520028 which happen at epoch 13
+│tensor(0.8958)
